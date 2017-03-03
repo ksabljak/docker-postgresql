@@ -2,7 +2,7 @@ FROM sameersbn/ubuntu:14.04.20170123
 MAINTAINER sameer@damagehead.com
 
 ENV PG_APP_HOME="/etc/docker-postgresql"\
-    PG_VERSION=9.6 \
+    PG_VERSION=9.5 \
     PG_USER=postgres \
     PG_HOME=/var/lib/postgresql \
     PG_RUNDIR=/run/postgresql \
@@ -23,6 +23,9 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
  && rm -rf ${PG_HOME} \
  && rm -rf /var/lib/apt/lists/*
 
+RUN localedef -i hr_HR -c -f UTF-8 -A /usr/share/locale/locale.alias hr_HR.UTF-8
+ENV LANG hr_HR.utf8
+ 
 COPY runtime/ ${PG_APP_HOME}/
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod 755 /sbin/entrypoint.sh
