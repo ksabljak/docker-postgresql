@@ -21,9 +21,9 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
  && ln -sf ${PG_DATADIR}/pg_hba.conf /etc/postgresql/${PG_VERSION}/main/pg_hba.conf \
  && ln -sf ${PG_DATADIR}/pg_ident.conf /etc/postgresql/${PG_VERSION}/main/pg_ident.conf \
  && rm -rf ${PG_HOME} \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
+ && localedef -i hr_HR -c -f UTF-8 -A /usr/share/locale/locale.alias hr_HR.UTF-8
 
-RUN localedef -i hr_HR -c -f UTF-8 -A /usr/share/locale/locale.alias hr_HR.UTF-8
 ENV LANG hr_HR.utf8
  
 COPY runtime/ ${PG_APP_HOME}/
